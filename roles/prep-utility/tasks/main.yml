@@ -1,0 +1,50 @@
+---
+
+- name: Install EPEL RPM for CentOS 7
+  yum:
+    name: http://mirrors.kernel.org/fedora-epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm
+    state: present
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version == "7.4.1708"
+
+- name: Install distro packages
+  package:
+    name: "{{ utility_distro_packages }}"
+    state: latest
+
+- name: Install pip packages
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "{{ utility_pip_packages }}"
+
+- name: Copy lldpd.conf to etc
+  copy:
+   src: lldpd.conf
+   dest: /etc/lldpd.conf
+
+- name: Checkout rpc-deploy-utility
+  git:
+    repo: https://github.com/rcbops/rpc-deploy-utility
+    dest: /opt/rpc-deploy-utility
+    version: master
+    depth: 1
+    force: true
+
+- name: Install rpc-deploy-utility startup
+  copy:
+    src: rpc-deploy-utility
+    dest: /usr/local/bin/rpc-deploy-utility
+    mode: 0744
+
+- name: Install rpc-deploy-utility service file
+  copy:
+    src: rpc-deploy-utility.service
+    dest: /lib/systemd/system/rpc-deploy-utility.service
+
+- name: Enable systemd services
+  file: src={{ item.path }} dest={{ item.dest }} state=link
+  with_items:
+    - { path: '/lib/systemd/system/rpc-deploy-utility.service', dest: '/etc/systemd/system/multi-user.target.wants/rpc-deploy-utility.service' }
+    - { path: '/lib/systemd/system/lldpd.service', dest: '/etc/systemd/system/multi-user.target.wants/lldpd.service' }
+    - { path: '/lib/systemd/system/NetworkManager.service', dest: '/etc/systemd/system/multi-user.target.wants/NetworkManager.service' }

@@ -1,0 +1,34 @@
+---
+
+- name: Initial setup and bootstrap
+  hosts: builder
+  tags:
+    - bootstrap
+  tasks:
+    - include: utils/bootstrap/requirements-check.yml
+    - include: utils/bootstrap/pre-bootstrap.yml
+    - include: utils/bootstrap/build_chroot_docker.yml
+
+- name: Create rpc-deploy-utility live image
+  hosts: chroot
+  tags:
+    - prep-utility
+  roles:
+    - minimal
+    - prep-utility
+    - prep-hp
+    - prep-dell
+
+- name: Cleanup
+  hosts: chroot
+  tags:
+    - cleanup
+  tasks:
+    - include: utils/packaging/cleanup.yml
+
+- name: Packaging
+  hosts: builder
+  tags:
+    - packaging
+  tasks:
+    - include: utils/packaging/packaging.yml

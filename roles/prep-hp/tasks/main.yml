@@ -1,0 +1,52 @@
+---
+#
+# Installs HP MCP packages http://downloads.linux.hpe.com/SDR/project/mcp/
+# and hpsum packages: https://downloads.linux.hpe.com/SDR/project/hpsum/
+#
+
+- name: Install HP MCP apt keys
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+  with_items:
+    - http://downloads.linux.hpe.com/SDR/hpPublicKey1024.pub
+    - http://downloads.linux.hpe.com/SDR/hpPublicKey2048.pub
+    - http://downloads.linux.hpe.com/SDR/hpPublicKey2048_key1.pub
+    - http://downloads.linux.hpe.com/SDR/hpePublicKey2048_key1.pub
+  when: ansible_distribution == "CentOS"
+
+- name: Install HP MCP yum repository
+  yum_repository:
+    name: mcp
+    description: Management Component Pack
+    baseurl: http://downloads.linux.hpe.com/repo/mcp/centos/7/x86_64/current
+    state: present
+    file: mcp.repo
+    enabled: yes
+    gpgcheck: no
+  when: ansible_distribution == "CentOS"
+
+- name: Install hpsum repository
+  yum_repository:
+    name: hpsum
+    description: HP Smart Update Manager
+    baseurl: http://downloads.linux.hpe.com/repo/hpsum/rhel/7/x86_64/current
+    state: present
+    file: hpsum.repo
+    enabled: yes
+    gpgcheck: no
+    gpgkey: file:///etc/pki/rpm-gpg/GPG-KEY-hpsum
+  when: ansible_distribution == "CentOS"
+
+- name: Install HP MCP packages
+  package:
+    name: "{{ item }}"
+  with_items:
+    - hp-health
+    - hponcfg
+    - hpsum
+    - ssa
+    - ssaducli
+    - ssacli
+  ignore_errors: true
+  when: ansible_distribution == "CentOS"

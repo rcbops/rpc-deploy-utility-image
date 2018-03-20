@@ -1,0 +1,20 @@
+---
+
+utility_distro_packages:
+  - gcc
+  - git
+  - ipmitool
+  - iputils
+  - openssl-devel
+  - libselinux-python
+  - lldpd
+  - lvm2
+  - NetworkManager
+  - parted
+  - python-devel
+  - python-pip
+  - python-setuptools
+  - uuid
+  - vim
+utility_pip_packages:
+  - ansible

@@ -1,0 +1,14 @@
+[dell-system-update_independent]
+name=dell-system-update_independent
+baseurl=http://linux.dell.com/repo/hardware/dsu/os_independent/
+gpgcheck=1
+gpgkey=http://linux.dell.com/repo/hardware/dsu/public.key
+enabled=1
+exclude=dell-system-update*.i386
+
+[dell-system-update_dependent]
+name=dell-system-update_dependent
+mirrorlist=http://linux.dell.com/repo/hardware/dsu/mirrors.cgi?osname=el$releasever&basearch=$basearch&native=1
+gpgcheck=1
+gpgkey=http://linux.dell.com/repo/hardware/dsu/public.key
+enabled=1

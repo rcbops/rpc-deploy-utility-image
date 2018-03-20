@@ -1,0 +1,33 @@
+---
+#
+# Dell OpenManage Tooling (RHEL) - http://linux.dell.com/repo/hardware/dsu/ 
+#
+
+- name: Install Dell System Update repo key
+  rpm_key:
+    key: http://linux.dell.com/repo/hardware/dsu/public.key
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Copy dell-system-update.repo
+  copy:
+   src: dell-system-update.repo
+   dest: /etc/yum.repos.d/dell-system-update.repo
+  when: ansible_distribution == "CentOS"
+
+- name: Install Dell Openmanage packages
+  package:
+    name: "{{ item }}"
+  with_items:
+    - dell-system-update
+    - srvadmin-base
+    - srvadmin-idrac
+  ignore_errors: true
+  when: ansible_distribution == "CentOS"
+
+- name: Start Dell dataeng service
+  service:
+    name: dataeng
+    enabled: yes 
+  ignore_errors: yes
+  when: ansible_distribution == "CentOS"

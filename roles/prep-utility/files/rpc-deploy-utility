@@ -1,0 +1,29 @@
+#!/bin/sh
+
+utility_check()
+{
+    if ! grep -qs "playbook=" /proc/cmdline
+    then
+        echo "[rpc-deploy-utility] Playbook not set... not doing anything..."
+    exit 0
+    fi
+    echo "[rpc-deploy-utility] Playbook set... linking playbook to run on boot..."
+    PLAYBOOK=`cat /proc/cmdline | grep -o 'playbook=[^ ,]\+' | awk -F'=' {'print $2'}`
+    ln -s /opt/rpc-deploy-utility/$PLAYBOOK.yml /opt/rpc-deploy-utility/playbook.yml
+}
+
+run_playbook()
+{
+    cd /opt/rpc-deploy-utility
+    git pull
+    ansible-playbook -i localhost playbook.yml
+}
+
+
+main()
+{
+    utility_check
+    run_playbook
+}
+
+main
