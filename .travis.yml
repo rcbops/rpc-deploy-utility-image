@@ -23,6 +23,8 @@ script:
 - ls -lah live_output
 - sudo chown -R travis:travis live_output
 - cd live_output
+- cp * ../../
+- cd ../../
 
 before_deploy:
   # Set up git user name and tag this commit
