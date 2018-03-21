@@ -1,6 +1,6 @@
 # rpc-deploy-utility-image
 
-https://travis-ci.org/rcbops/rpc-deploy-utility-image.svg?branch=master
+[![Build Status](https://travis-ci.org/rcbops/rpc-deploy-utility-image.svg?branch=master)](https://travis-ci.org/rcbops/rpc-deploy-utility-image)
 
 The repo will generate the rpc-deploy-utility-image.  It is a network bootable
 LiveOS based on CentOS 7 used for handling provisioning operations for rpc-deploy.
