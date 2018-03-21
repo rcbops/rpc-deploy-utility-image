@@ -39,7 +39,6 @@ deploy:
   - vmlinuz
   - initrd.img
   - rootfs.img
-  - rootfs.img.torrent
   on:
     repo: rcbops/rpc-deploy-utility-image
   skip_cleanup: true
