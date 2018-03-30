@@ -42,6 +42,11 @@
     src: rpc-deploy-utility.service
     dest: /lib/systemd/system/rpc-deploy-utility.service
 
+- name: Update issue file
+  copy:
+    src: etc-issue
+    dest: /etc/issue
+
 - name: Enable systemd services
   file: src={{ item.path }} dest={{ item.dest }} state=link
   with_items:

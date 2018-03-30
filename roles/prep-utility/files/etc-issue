@@ -1,0 +1,15 @@
+\S
+Kernel \r on an \m
+
+rpc-deploy-utility-image
+
+To log in via console (sudo for root):
+
+username: live
+password: live
+
+Playbook location: /opt/rpc-deploy-utility
+
+Automation playbooks can be ran with:
+
+ansible-playbook -i localhost <playbook>.yml
