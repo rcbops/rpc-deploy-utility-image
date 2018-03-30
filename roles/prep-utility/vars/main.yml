@@ -9,6 +9,7 @@ utility_distro_packages:
   - libselinux-python
   - lldpd
   - lvm2
+  - net-tools
   - NetworkManager
   - parted
   - python-devel
