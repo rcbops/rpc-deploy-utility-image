@@ -13,7 +13,7 @@ before_install:
 - sudo apt-get install -qq squashfs-tools uuid python-apt python-pycurl btrfs-tools
 install:
 - sudo pip install ansible
-- sudo pip install docker-py
+- sudo pip install docker
 script:
 - cp -R roles/* squashible/roles/
 - cp squashible.yml squashible/
