@@ -1,6 +1,7 @@
 ---
 
 utility_distro_packages:
+  - epel-release
   - gcc
   - git
   - ipmitool
