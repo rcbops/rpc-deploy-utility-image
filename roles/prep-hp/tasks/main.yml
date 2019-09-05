@@ -21,7 +21,7 @@
     description: Management Component Pack
     baseurl: http://downloads.linux.hpe.com/repo/mcp/centos/7/x86_64/current
     state: present
-    file: mcp.repo
+    file: mcp
     enabled: yes
     gpgcheck: no
   when: ansible_distribution == "CentOS"
@@ -32,7 +32,7 @@
     description: HP Smart Update Manager
     baseurl: http://downloads.linux.hpe.com/repo/hpsum/rhel/7/x86_64/current
     state: present
-    file: hpsum.repo
+    file: hpsum
     enabled: yes
     gpgcheck: no
     gpgkey: file:///etc/pki/rpm-gpg/GPG-KEY-hpsum
@@ -42,7 +42,6 @@
   package:
     name: "{{ item }}"
   with_items:
-    - hp-health
     - hponcfg
     - hpsum
     - ssa
