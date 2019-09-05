@@ -33,8 +33,7 @@ before_deploy:
   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
 deploy:
   provider: releases
-  api_key:
-    secure: FDQjg954U4sZLb6pNG8LK1enRPyBc7ANI04bo7FNAmTTDgtahE89dySN0vwV3EqcxAF63TsbuQXHIOlMX0RhujP8gdAZERqGP9blfq7kNETS+m+rC7B4UnG8uQteCVY0ZTJaYuqEKhhGWZCjrZJKfuweXa8biICtUOaCjdVzbXVucTNQuPpRwt2F+iLzAKorCz3ekqH9B7u7GxxDDp0PnDlfC2gMpTOdJpsok0D3QYjPYrvmDQVtG5fXaRiXpgLS8dI7p5Lb4sP3JGU/ldKPsSkG3ZD8otTwMNANhdMbsD+8Btc9MCrQiAZzdtDW29MxMgZOZ2JB2rE0KbEJ8+N31XEnm4v2LBDmp186dx+E3V644c7pXp7NFs1fSic+1OR3OzQQoSJFROxUbD/yilaNtrQEWmYPzbySysXllIMBRhqoAWZzDWb4wYd4IIoieacq1H6KlREXAXCaMVcPKMPaGsQDDujc6a9KYYidIJHg/iSAdYAbVeWslif4E7tqsNNkYS+kMr7y7rn7MB0vqwBAxMJeSxRoNiNx5fh+OCoso54QPrUmmVmpsSOFc2hMJdScX5T2s0h1GFisG9aPAUbFHI8HmD5gwff5HhmBStAy+S7/76ELyuCK+hk12gqZICNgpoNOWofQDXCLwLJkUqmcprS+RZXzcpphKSLPnJBaJZs=
+  api_key: $GITHUB_OAUTH_TOKEN
   file:
   - vmlinuz
   - initrd.img
