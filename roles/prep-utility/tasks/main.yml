@@ -1,5 +1,10 @@
 ---
 
+- name: Instal epel-release
+  package:
+    name: epel-release
+    state: latest
+
 - name: Install distro packages
   package:
     name: "{{ utility_distro_packages }}"
