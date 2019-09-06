@@ -5,8 +5,12 @@
 
 - name: Install Dell System Update repo key
   rpm_key:
-    key: http://linux.dell.com/repo/hardware/dsu/public.key
+    key: http://linux.dell.com/repo/pgp_pubkeys/{{ item }}.asc
     state: present
+  with_items:
+    - 0x756ba70b1019ced6
+    - 0x1285491434D8786F
+    - 0xca77951d23b66a9d
   when: ansible_distribution == "CentOS"
 
 - name: Copy dell-system-update.repo
